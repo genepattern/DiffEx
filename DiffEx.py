@@ -1,7 +1,7 @@
 """
 Created on 2017-07-18 by Edwin F. Juarez using the CCAL library created by Kwat Medetgul-Ernar Pablo Tamayo.
 
-This module will grab a .gct file and a cls file to perform differential expression analysis.
+This module will grab a .gct file and a .cls file to perform differential expression analysis.
 """
 # import os
 import sys
@@ -30,8 +30,8 @@ import matplotlib.pyplot as plt
 def custom_pearson(x, y):
     return scipy.stats.pearsonr(x, y)[0]
 
-TOP = 10
-
+TOP = 10  # Setting a fixed number for now. TODO: Turn this into a parameter.
+# Error handling:
 arg_n = len(sys.argv)
 if arg_n == 1:
     err_out = open('stderr.txt', 'w')
@@ -77,9 +77,7 @@ else:
 
 
 out = open('stdout.txt', 'w')
-# gct_name = "all_aml_test.preprocessed.gct"
 df = pd.read_csv(gct_name, sep='\t', skiprows=2)
-# cls_name = "all_aml_test.cls"
 f = open(cls_name)
 f.readline()
 labels = np.asarray(f.readline().strip('\n').split(' '), dtype=str)[1:]
@@ -89,18 +87,6 @@ to_target = pd.Series(data=idx, index=list(df)[2:])
 target, features, results = ccal.computational_cancer_biology.association.compute_association(
     target=to_target, features=df.iloc[:, 2:], function=function_to_call)
 
-# input(results)
-
-
-# import pickle
-# pickle.dump((target, features, results, df), file=open("temp.p", 'wb'))
-#
-# import pickle
-# (target, features, results, df) = pickle.load(open("temp.p", 'rb'))
-# cls_name = "all_aml_test.cls"
-# f = open(cls_name)
-# f.readline()
-# labels = np.asarray(f.readline().strip('\n').split(' '), dtype=str)[1:]
 
 indexes = results.index.values
 df = df.reindex(list(indexes))
@@ -121,7 +107,8 @@ out_df['Description'] = df.iloc[np.r_[0:TOP, -TOP:0], :]['Description']
 out_df['Score'] = results.iloc[np.r_[0:TOP, -TOP:0], :]['score']
 out_df['Differentially Expressed In'] = out_df.apply(make_label, args=(labels,), axis=1)
 
-# out_df['Marker-of'] = ['ALL' if np.sign(out_df['Score']) > 0 else "AML"]
+# TODO: Make these outputs optional.
+
 out = open('features.txt', 'w')
 out.write(features.to_csv())
 out.close()
@@ -135,8 +122,6 @@ out.close()
 out = open("scores.txt", 'w')
 out.write(out_df.to_csv())
 out.close()
-# print(df.head(n=TOP))
-# print(features.iloc[np.r_[0:TOP, -TOP:0], :])
 sns.heatmap(features.iloc[np.r_[0:TOP, -TOP:0], :], cmap='coolwarm')
 plt.yticks(rotation=0)
 plt.xticks(rotation=90)
@@ -145,13 +130,9 @@ plt.savefig('heatmap.png', dpi=300)
 plt.clf()
 sns.barplot(y='Score', x='Name', data=out_df, hue='Differentially Expressed In')
 plt.title('Differential Expression Analysis')
-# my_cmap = sns.color_palette(as_cmap=True)
-# plt.ylabel('Similarity Metric\nNegative val. diff. ex. in '+labels[0]+' Positive val. diff. ex. ib'+labels[1])
 plt.xticks(rotation=45, horizontalalignment="right")
-# [t.set_color(i) for (i, t) in zip(cmap(out_df['Score']), plt.gca().xaxis.get_ticklabels())]
 plt.axvline(x=TOP-0.5, linestyle='--', color='gray')
 plt.axhline(y=0, linestyle='-', color='k')
 plt.ylabel('Similarity Metric')
 plt.xlabel('Gene Name')
-# plt.tight_layout()
 plt.savefig('scores.png', dpi=300, bbox_inches="tight")
