@@ -3,9 +3,10 @@ Created on 2017-07-18 by Edwin F. Juarez using the CCAL library created by Kwat 
 
 This module will grab a .gct file and a .cls file to perform differential expression analysis.
 """
-# import os
+
+import os
 import sys
-# sys.path.append(os.getcwd()+"/ccalnoir")
+sys.path.append(os.getcwd()+"/ccalnoir")
 # from sys import path
 # path.append('./ccalnoir')
 # print(sys.path)
@@ -18,8 +19,8 @@ import sys
 # zip_ref = zipfile.ZipFile('ccal.zip', 'r')
 # zip_ref.extractall('.')
 # zip_ref.close()
-import ccalnoir.ccalnoir as ccal
-from ccalnoir.ccalnoir.mathematics.information import information_coefficient
+import ccalnoir as ccal
+from ccalnoir.mathematics.information import information_coefficient
 import pandas as pd
 import numpy as np
 import scipy
@@ -30,7 +31,6 @@ import matplotlib.pyplot as plt
 def custom_pearson(x, y):
     return scipy.stats.pearsonr(x, y)[0]
 
-TOP = 10  # Setting a fixed number for now. TODO: Turn this into a parameter.
 # Error handling:
 arg_n = len(sys.argv)
 if arg_n == 1:
@@ -45,8 +45,14 @@ elif arg_n == 2:
 elif arg_n == 3:
     gct_name = sys.argv[1]
     cls_name = sys.argv[2]
+    TOP = 10
     function_to_call = custom_pearson
 elif arg_n == 4:
+    gct_name = sys.argv[1]
+    cls_name = sys.argv[2]
+    TOP = int(sys.argv[3])
+    function_to_call = custom_pearson
+elif arg_n == 5:
     dispatcher = {
         "Pearson Correlation": custom_pearson,
         "PC": custom_pearson,
@@ -61,9 +67,9 @@ elif arg_n == 4:
     }
     gct_name = sys.argv[1]
     cls_name = sys.argv[2]
+    TOP = int(sys.argv[3])
     try:
-
-        function_to_call = dispatcher[sys.argv[3]]
+        function_to_call = dispatcher[sys.argv[4]]
         print('Using '+str(function_to_call)+' as the metric for similarity.')
     except KeyError:
         raise ValueError('This function is not supported at the moment, only Pearson Correlation and '
