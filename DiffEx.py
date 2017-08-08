@@ -6,27 +6,18 @@ This module will grab a .gct file and a .cls file to perform differential expres
 
 import os
 import sys
-sys.path.append(os.getcwd()+"/ccalnoir")
-# from sys import path
-# path.append('./ccalnoir')
-# print(sys.path)
-
-# import os
-# out = open('stdout.txt', 'w')
-# out.write(str(os.listdir('.')))
-
-# import zipfile
-# zip_ref = zipfile.ZipFile('ccal.zip', 'r')
-# zip_ref.extractall('.')
-# zip_ref.close()
+tasklib_path = os.path.dirname(os.path.realpath(sys.argv[0]))
+sys.path.append(tasklib_path + "/ccalnoir")
+import matplotlib as mpl
+mpl.use('Agg')
 import ccalnoir as ccal
 from ccalnoir.mathematics.information import information_coefficient
 import pandas as pd
 import numpy as np
 import scipy
-# import math
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 
 def custom_pearson(x, y):
     return scipy.stats.pearsonr(x, y)[0]
@@ -83,6 +74,7 @@ else:
 
 
 out = open('stdout.txt', 'w')
+
 df = pd.read_csv(gct_name, sep='\t', skiprows=2)
 f = open(cls_name)
 f.readline()
@@ -90,9 +82,13 @@ labels = np.asarray(f.readline().strip('\n').split(' '), dtype=str)[1:]
 idx = np.asarray(f.readline().strip('\n').split(' '), dtype=float)
 to_target = pd.Series(data=idx, index=list(df)[2:])
 
+out.write("Successfully read file {} and {}, will use {} as the similarity metric.\n"
+          .format(gct_name, cls_name, function_to_call.__name__))
+
 target, features, results = ccal.computational_cancer_biology.association.compute_association(
     target=to_target, features=df.iloc[:, 2:], function=function_to_call)
-
+out.write("All analyses complete.")
+out.close()
 
 indexes = results.index.values
 df = df.reindex(list(indexes))
@@ -131,7 +127,10 @@ out.close()
 sns.heatmap(features.iloc[np.r_[0:TOP, -TOP:0], :], cmap='coolwarm')
 plt.yticks(rotation=0)
 plt.xticks(rotation=90)
-plt.savefig('heatmap.png', dpi=300)
+plt.title('Top {} differentially expressed genes per phenotype'.format(TOP))
+plt.ylabel('Genes')
+plt.xlabel('Sample')
+plt.savefig('heatmap.png', dpi=300, bbox_inches="tight")
 
 plt.clf()
 sns.barplot(y='Score', x='Name', data=out_df, hue='Differentially Expressed In')
