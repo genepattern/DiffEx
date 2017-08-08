@@ -1,0 +1,11 @@
+,Name,Description,Score,Differentially Expressed In
+0,U46499_at,"GLUTATHIONE S-TRANSFERASE, MICROSOMAL",0.7508992036799196,AML
+1,M84526_at,DF D component of complement (adipsin),0.6789273153799941,AML
+4,M19507_at,MPO Myeloperoxidase,0.6688283226143628,AML
+2,X95735_at,Zyxin,0.6017073112473532,AML
+3,M63959_at,LRPAP1 Low density lipoprotein-related protein-associated protein 1 (alpha-2-macroglobulin receptor-associated protein 1,0.5834270510555889,AML
+8,J05243_at,"SPTAN1 Spectrin, alpha, non-erythrocytic 1 (alpha-fodrin)",-0.565618181390618,ALL
+6,M31523_at,TCF3 Transcription factor 3 (E2A immunoglobulin enhancer binding factors E12/E47),-0.5964330945032595,ALL
+7,M84371_rna1_s_at,CD19 gene,-0.6011969063025713,ALL
+5,M11722_at,Terminal transferase mRNA,-0.6055009209889682,ALL
+9,M89957_at,IGB Immunoglobulin-associated beta (B29),-0.6557313596026788,ALL
