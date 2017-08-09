@@ -25,12 +25,12 @@ def custom_pearson(x, y):
 # Error handling:
 arg_n = len(sys.argv)
 if arg_n == 1:
-    err_out = open('stderr.txt', 'w')
+    err_out = open('DiffEX_stderr.txt', 'w')
     err_out.write("No files were provided. This module needs a GCT and a CLS file to work.")
     err_out.close()
     sys.exit("Error message: No files were provided. This module needs a GCT and a CLS file to work.")
 elif arg_n == 2:
-    err_out = open('stderr.txt', 'w')
+    err_out = open('DiffEX_stderr.txt', 'w')
     err_out.write("Only one file was provided (called = {}). This module needs a GCT and a CLS file to work.".format(sys.argv[0]))
     sys.exit("Only one file was provided (called = {}). This module needs a GCT and a CLS file to work.".format(sys.argv[0]))
 elif arg_n == 3:
@@ -66,14 +66,14 @@ elif arg_n == 5:
         raise ValueError('This function is not supported at the moment, only Pearson Correlation and '
                          'Information Coefficient are supported at the moment.')
 else:
-    err_out = open('stderr.txt', 'w')
+    err_out = open('DiffEX_stderr.txt', 'w')
     err_out.write("Too many inputs. This module needs a GCT and a CLS file to work, "
                   "plus an optional input choosing between Pearson Correlation or Information Coefficient.")
     sys.exit("Too many inputs. This module needs a GCT and a CLS file to work, "
              "plus an optional input choosing between Pearson Correlation or Information Coefficient.")
 
 
-out = open('stdout.txt', 'w')
+out = open('DiffEX_stdout.txt', 'w')
 
 df = pd.read_csv(gct_name, sep='\t', skiprows=2)
 f = open(cls_name)
@@ -84,10 +84,13 @@ to_target = pd.Series(data=idx, index=list(df)[2:])
 
 out.write("Successfully read file {} and {}, will use {} as the similarity metric.\n"
           .format(gct_name, cls_name, function_to_call.__name__))
+print("Successfully read file {} and {}, will use {} as the similarity metric.\n".format(
+    gct_name, cls_name, function_to_call.__name__))
 
 target, features, results = ccal.computational_cancer_biology.association.compute_association(
     target=to_target, features=df.iloc[:, 2:], function=function_to_call)
 out.write("All analyses complete.")
+print("All analyses complete")
 out.close()
 
 indexes = results.index.values
