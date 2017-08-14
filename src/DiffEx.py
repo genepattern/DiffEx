@@ -68,7 +68,11 @@ elif arg_n == 5:
 else:
     err_out = open('DiffEX_stderr.txt', 'w')
     err_out.write("Too many inputs. This module needs a GCT and a CLS file to work, "
-                  "plus an optional input choosing between Pearson Correlation or Information Coefficient.")
+                  "plus an optional input choosing between Pearson Correlation or Information Coefficient. "
+                  "Here are the inputs provided: ")
+    for element in sys.argv:
+        err_out.write(element)
+
     sys.exit("Too many inputs. This module needs a GCT and a CLS file to work, "
              "plus an optional input choosing between Pearson Correlation or Information Coefficient.")
 
