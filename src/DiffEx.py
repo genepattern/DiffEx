@@ -17,6 +17,7 @@ import numpy as np
 import scipy
 import seaborn as sns
 import matplotlib.pyplot as plt
+import cuzcatlan as cusca
 
 
 def custom_pearson(x, y):
@@ -148,3 +149,5 @@ plt.axhline(y=0, linestyle='-', color='k')
 plt.ylabel('Similarity Metric')
 plt.xlabel('Gene Name')
 plt.savefig('scores.png', dpi=300, bbox_inches="tight")
+
+cusca.makeODF(out_df, 'test.odf')

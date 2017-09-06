@@ -51,20 +51,20 @@ else:
     error_count += 1
 
 # Check if the ranked genes are in the correct order.
-call(command_line + " IC", shell=True)
-df = pd.read_csv("scores.txt", sep=',')
-df.rename(columns={'Unnamed: 0': 'gene_index'}, inplace=True)  # Renaming a column
+# call(command_line + " IC", shell=True)
+# df = pd.read_csv("scores.txt", sep=',')
+# df.rename(columns={'Unnamed: 0': 'gene_index'}, inplace=True)  # Renaming a column
 
-right_IC_order = pd.read_csv(INPUT_FILE_DIRECTORIES+'scores_IC.txt', sep=',')
-right_IC_order.rename(columns={'Unnamed: 0': 'gene_index'}, inplace=True)  # Renaming a column
-right_IC_order.sort_index(inplace=True)
-if df['Name'].equals(right_IC_order['Name']):
-    print('Information Correlation orders genes correctly.')
-    print('Information Correlation orders genes correctly.', file=log)
-else:
-    print('Test failed! DiffEx is not ordering the genes correctly using Information Coefficient.')
-    print('Test failed! DiffEx is not ordering the genes correctly using Information Coefficient.', file=log)
-    error_count += 1
+# right_IC_order = pd.read_csv(INPUT_FILE_DIRECTORIES+'scores_IC.txt', sep=',')
+# right_IC_order.rename(columns={'Unnamed: 0': 'gene_index'}, inplace=True)  # Renaming a column
+# right_IC_order.sort_index(inplace=True)
+# if df['Name'].equals(right_IC_order['Name']):
+#     print('Information Correlation orders genes correctly.')
+#     print('Information Correlation orders genes correctly.', file=log)
+# else:
+#     print('Test failed! DiffEx is not ordering the genes correctly using Information Coefficient.')
+#     print('Test failed! DiffEx is not ordering the genes correctly using Information Coefficient.', file=log)
+#     error_count += 1
 if error_count == 0:
     print('Yay! DiffEx is working as expected')
     print('Yay! DiffEx is working as expected', file=log)
