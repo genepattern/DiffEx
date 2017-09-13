@@ -1,7 +1,7 @@
 #DiffEx
 #Mon Aug 14 19:00:19 UTC 2017
 JVMLevel=3.1
-LSID=urn\:lsid\:8080.gpserver.ip-172-31-26-71.ip-172-31-26-71.ec2.internal\:genepatternmodules\:14\:0.0.1
+LSID=urn\:lsid\:8080.gpserver.ip-172-31-26-71.ip-172-31-26-71.ec2.internal\:genepatternmodules\:14\:0.0.3
 author=Edwin Juarez;Mesirov Lab
 categories=Differential Expression
 commandLine=<python/3.6> <libdir>DiffEx.py <GCT_file> <CLS_file> <top_genes> <function_to_call>

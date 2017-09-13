@@ -80,6 +80,8 @@ else:
 
 out = open('DiffEX_stdout.txt', 'w')
 
+n_perm = 100
+
 df = pd.read_csv(gct_name, sep='\t', skiprows=2)
 f = open(cls_name)
 f.readline()
@@ -93,7 +95,7 @@ print("Successfully read file {} and {}, will use {} as the similarity metric.\n
     gct_name, cls_name, function_to_call.__name__))
 
 target, features, results = ccal.computational_cancer_biology.association.compute_association(
-    target=to_target, features=df.iloc[:, 2:], function=function_to_call)
+    target=to_target, features=df.iloc[:, 2:], function=function_to_call, n_permutations=n_perm, target_ascending=True)
 out.write("All analyses complete.")
 print("All analyses complete")
 out.close()
@@ -111,11 +113,16 @@ def make_label(row, labels=np.array([0, 1])):
         idx = labels[0]
     return idx
 
+
+
 out_df = pd.DataFrame()
 out_df['Name'] = df.iloc[np.r_[0:TOP, -TOP:0], :]['Name']
 out_df['Description'] = df.iloc[np.r_[0:TOP, -TOP:0], :]['Description']
 out_df['Score'] = results.iloc[np.r_[0:TOP, -TOP:0], :]['score']
 out_df['Differentially Expressed In'] = out_df.apply(make_label, args=(labels,), axis=1)
+
+# print(labels)
+# print(np.unique(out_df['Differentially Expressed In']))
 
 # TODO: Make these outputs optional.
 
@@ -150,4 +157,13 @@ plt.ylabel('Similarity Metric')
 plt.xlabel('Gene Name')
 plt.savefig('scores.png', dpi=300, bbox_inches="tight")
 
-cusca.makeODF(out_df, 'test.odf')
+vals = {}
+vals['gct'] = gct_name
+vals['cls'] = cls_name
+vals['n_perm'] = n_perm
+vals['func'] = str(function_to_call)
+vals['rand_seed'] = ccal.RANDOM_SEED
+vals['dat_lines'] = 2*TOP
+vals['class_0'] = 'AML'  # In this module a positive value is associated with being overexpressed in AML
+vals['class_1'] = 'ALL'
+cusca.makeODF(out_df, vals=vals, file_name='DiffEx_output.odf')

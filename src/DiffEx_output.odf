@@ -1,0 +1,30 @@
+ODF 1.0
+HeaderLines=18
+COLUMN_NAMES:Name	Description	Score	Differentially Expressed In
+COLUMN_TYPES:String	String	double	String
+Model=Comparative Marker Selection
+Dataset File=/Users/edjuaro/GoogleDrive/modules/DiffEx/src/../data/test_dataset.gct
+Class File=/Users/edjuaro/GoogleDrive/modules/DiffEx/src/../data/test_dataset.cls
+Permutations=100
+Class 0=AML
+Class 1=ALL
+Test Statistic=<function custom_pearson at 0x10402a268>
+pi0=
+lambda=
+pi0(lambda)=
+cubic spline(lambda)=
+Random Seed=20121020
+Smooth p-values=
+DataLines=10
+RowNamesColumn=0
+RowDescriptionsColumn=1
+U46499_at	GLUTATHIONE S-TRANSFERASE, MICROSOMAL	0.8232743334898097	AML
+M84526_at	DF D component of complement (adipsin)	0.7761354329366362	AML
+X95735_at	Zyxin	0.7745357513916572	AML
+M63959_at	LRPAP1 Low density lipoprotein-related protein-associated protein 1 (alpha-2-macroglobulin receptor-associated protein 1	0.7696607093221498	AML
+M19507_at	MPO Myeloperoxidase	0.7621493955047131	AML
+M11722_at	Terminal transferase mRNA	-0.7160470705308074	ALL
+M31523_at	TCF3 Transcription factor 3 (E2A immunoglobulin enhancer binding factors E12/E47)	-0.7221959124252774	ALL
+M84371_rna1_s_at	CD19 gene	-0.7298154820372134	ALL
+J05243_at	SPTAN1 Spectrin, alpha, non-erythrocytic 1 (alpha-fodrin)	-0.7369363889169885	ALL
+M89957_at	IGB Immunoglobulin-associated beta (B29)	-0.7401580958159091	ALL

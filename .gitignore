@@ -4,3 +4,5 @@ src/ccalnoir/ccalnoir/computational_cancer_biology/__pycache__
 src/ccalnoir/ccalnoir/machine_learning/__pycache__
 src/ccalnoir/ccalnoir/mathematics/__pycache__
 src/ccalnoir/ccalnoir/support/__pycache__
+*.zip
+.DS_Store

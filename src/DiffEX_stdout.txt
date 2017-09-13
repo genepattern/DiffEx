@@ -1,0 +1,2 @@
+Successfully read file /Users/edjuaro/GoogleDrive/modules/DiffEx/src/../data/test_dataset.gct and /Users/edjuaro/GoogleDrive/modules/DiffEx/src/../data/test_dataset.cls, will use custom_pearson as the similarity metric.
+All analyses complete.
