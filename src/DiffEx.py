@@ -7,11 +7,15 @@ This module will grab a .gct file and a .cls file to perform differential expres
 import os
 import sys
 tasklib_path = os.path.dirname(os.path.realpath(sys.argv[0]))
-sys.path.append(tasklib_path + "/ccalnoir")
+# sys.path.append(tasklib_path + "/ccalnoir")
+sys.path.append("/Users/edjuaro/GoogleDrive/ccal")
 import matplotlib as mpl
 mpl.use('Agg')
-import ccalnoir as ccal
-from ccalnoir.mathematics.information import information_coefficient
+# import ccalnoir as ccal
+# from ccalnoir.mathematics.information import information_coefficient
+
+import ccal
+from ccal.mathematics.information import information_coefficient
 import pandas as pd
 import numpy as np
 import scipy
